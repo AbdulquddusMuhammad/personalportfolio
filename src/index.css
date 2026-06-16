@@ -17,6 +17,15 @@
   background: red;
 } */
 
+html {
+  scrollbar-color: #ff004f #080808;
+  scrollbar-width: auto;
+}
+
+html::-webkit-scrollbar-button {
+  /* display: none; */
+}
+
 body,
 html {
   margin: 0;

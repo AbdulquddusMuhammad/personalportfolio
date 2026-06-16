@@ -4,10 +4,24 @@ import { Menu, X } from "lucide-react";
 import { gsap } from "gsap";
 
 const Navbar = () => {
+  const [activeNavBar, setActiveNavbar] = useState("Home");
+
+  const activeNavBarHandler = (item) => {
+    setActiveNavbar(item);
+  };
+
   useEffect(() => {
     if (window.innerWidth > 1024) {
-      gsap.fromTo(".logo", { opacity: 0, y: -100 }, { opacity: 1, y: 0, duration: 2 });
-      gsap.fromTo("._nav-section_ li", { opacity: 0, y: -100 }, { opacity: 1, y: 0, duration: 2, stagger: 0.2 });
+      gsap.fromTo(
+        ".logo",
+        { opacity: 0, y: -100 },
+        { opacity: 1, y: 0, duration: 2 },
+      );
+      gsap.fromTo(
+        "._nav-section_ li",
+        { opacity: 0, y: -100 },
+        { opacity: 1, y: 0, duration: 2, stagger: 0.2 },
+      );
     }
   }, []);
 
@@ -24,18 +38,28 @@ const Navbar = () => {
   return (
     <div className="_navbar_ h-[15vh] flex justify-between lg:bg-[#00000091] bg-transparent fixed lg:w-[80vw] w-screen z-10 ">
       <div>
-        <img src={logo} className="lg:scale-100 lg:mt-0 mt-8 scale-[150%] logo w-[30vw] h-auto relative top-[-11vw]" alt="" />
+        <img
+          src={logo}
+          className="lg:scale-100 lg:mt-0 mt-8 scale-[150%] logo w-[30vw] h-auto relative top-[-11vw]"
+          alt=""
+        />
       </div>
       <Menu
         onClick={() => {
           setIsMenuOpen(true);
-          gsap.fromTo("._nav-section_ li", { opacity: 0, x: 100 }, { opacity: 1, x: 0, duration: 0.4, stagger: 0.2 });
+          gsap.fromTo(
+            "._nav-section_ li",
+            { opacity: 0, x: 100 },
+            { opacity: 1, x: 0, duration: 0.4, stagger: 0.2 },
+          );
           animateMenu();
         }}
         className="fixed top-4 right-4 lg:hidden block"
         size={46}
       />
-      <ul className={`_nav-section_ duration-500 flex lg:flex-row flex-col gap-8 lg:bg-transparent bg-[red] h-full lg:static fixed ${isMenuOpen ? "right-0" : "right-[-35vw]"}  pt-8 p-4 w-[35vw]`}>
+      <ul
+        className={`_nav-section_ duration-500 flex lg:flex-row flex-col gap-8 lg:bg-transparent bg-[red] h-full lg:static fixed ${isMenuOpen ? "right-0" : "right-[-35vw]"}  pt-8 p-4 w-[35vw]`}
+      >
         <X
           size={40}
           className="absolute top-4 right-4 lg:hidden z-20"
@@ -45,8 +69,17 @@ const Navbar = () => {
           }}
         />
         {navSections.map((item, index) => (
-          <li key={index} className="text-white lg:text-[1.1vw] text-[4vw] flex items-center pr-3">
-            <a href={`#${item}`}>{item}</a>
+          <li
+            key={index}
+            className="text-white lg:text-[1.1vw] text-[4vw] flex items-center pr-3 "
+          >
+            <a
+              className={`${activeNavBar === item ? "border-b-red-500 border-b-4" : "border-b-0 hover:border-b-white hover:border-b-4"} duration-100 p-[0.5rem]`}
+              href={`#${item}`}
+              onClick={() => activeNavBarHandler(item)}
+            >
+              {item}
+            </a>
           </li>
         ))}
       </ul>
